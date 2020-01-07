@@ -1,0 +1,58 @@
+/**
+ * Project: Algos
+ * Contributed By: Tushar Mudgal
+ * On: 06/01/20 | 1:23 PM
+ */
+public class BestTimeToBuyAndSellStock {
+    /*
+     * Say you have an array for which the ith element is the price of a given stock on day i.
+     * If you were only permitted to complete at most one transaction
+     * (i.e, buy one and sell one share of the stock), design an algorithm to find the maximum profit.
+     *
+     * Example 1:
+     * Input: [7, 1, 5, 3, 6, 4]
+     * Output: 5
+     *
+     * max. difference = 6-1 = 5 (not 7-1 = 6, as selling price needs to be larger than buying price)
+     *
+     * Example 2:
+     * Input: [7, 6, 4, 3, 1]
+     * Output: 0
+     *
+     * In this case, no transaction is done, i.e. max profit = 0.
+     */
+
+    static int maxProfit(int[] prices) {
+        int min = prices[0];
+        int maxProfit = 0;
+        for (int i = 1; i < prices.length; i++) {
+            if (prices[i] > min) {
+                maxProfit = Math.max(maxProfit, prices[i] - min);
+                System.out.println();
+            } else {
+                min = prices[i];
+            }
+        }
+        return maxProfit;
+    }
+
+    static void maxProfitAll(int[] arr) {
+        int len = arr.length;
+        int currMax = 0;
+        int profit = 0;
+        int ele = arr[0];
+        for (int i = 1; i < len; i++) {
+            if ((arr[i] - arr[i - 1]) <= 0) {
+                ele = arr[i];
+                profit = profit + currMax;
+                currMax = 0;
+            } else {
+                if (currMax < arr[i] - ele) {
+                    currMax = arr[i] - ele;
+                }
+            }
+        }
+        profit = profit + currMax;
+        System.out.println(profit);
+    }
+}
